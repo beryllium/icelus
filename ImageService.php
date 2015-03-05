@@ -3,33 +3,34 @@
 namespace Beryllium\Icelus;
 
 use Imanee\Imanee;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Service for Image Manipulation.
  */
 class ImageService
 {
-    public $env;
     public $imanee;
     public $source_dir;
     public $output_dir;
-    public $prefix = '/_thumbs';
+    public $filesystem;
+    public $prefix    = '/_thumbs';
     public $completed = array();
 
     /**
      * Constructor
      *
-     * @param Imanee    $imanee         Performs the required image manipulations
-     * @param string    $source_dir     Where to find the images
-     * @param string    $output_dir     Where to save the images
-     * @param string    $env            Current environment type
+     * @param Imanee        $imanee         Performs the required image manipulations
+     * @param string        $source_dir     Where to find the images
+     * @param string        $output_dir     Where to save the images
+     * @param Filesystem    $filesystem     Filesystem class for doing filesystem things
      */
-    public function __construct(Imanee $imanee, $source_dir, $output_dir, $env)
+    public function __construct(Imanee $imanee, $source_dir, $output_dir, Filesystem $filesystem)
     {
         $this->imanee     = $imanee;
         $this->source_dir = rtrim($source_dir, '/');
         $this->output_dir = rtrim($output_dir, '/');
-        $this->env        = $env;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -40,7 +41,7 @@ class ImageService
     protected function prepOutputDir()
     {
         if (!is_dir($this->output_dir . $this->prefix)) {
-            mkdir($this->output_dir . $this->prefix);
+            $this->filesystem->mkdir($this->output_dir . $this->prefix);
         }
     }
 

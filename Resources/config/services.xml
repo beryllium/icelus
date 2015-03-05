@@ -17,7 +17,7 @@
             <argument type="service" id="icelus.imanee" />
             <argument>%sculpin.source_dir%</argument>
             <argument>%sculpin.output_dir%</argument>
-            <argument>%kernel.environment%</argument>
+            <argument type="service" id="filesystem" />
         </service>
 
         <service id="icelus.extension.image" class="%icelus.twig_extension.class%">

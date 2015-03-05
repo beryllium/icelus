@@ -6,6 +6,7 @@ use Imanee\Exception\ImageNotFoundException;
 use Imanee\Imanee;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use Symfony\Component\Filesystem\Filesystem;
 
 class TwigImageExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,7 +39,7 @@ class TwigImageExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testValidThumbnail()
     {
-        $service = new ImageService($this->imanee, $this->source_dir, $this->output_dir->url('thumbs'), 'test');
+        $service = new ImageService($this->imanee, $this->source_dir, $this->output_dir->url('thumbs'), new Filesystem);
 
         // test a valid resource
         $thumbnail = $service->thumbnail('valid.jpg', 100, 100, false);
@@ -47,7 +48,7 @@ class TwigImageExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFoundThumbnail()
     {
-        $service = new ImageService($this->imanee, $this->source_dir, $this->output_dir->url('thumbs'), 'test');
+        $service = new ImageService($this->imanee, $this->source_dir, $this->output_dir->url('thumbs'), new Filesystem);
 
         // test a not-found resource
         try {

@@ -20,7 +20,8 @@
         "symfony/config": "~2.1",
         "symfony/dependency-injection": "~2.1",
         "symfony/http-kernel": "~2.6",
-        "twig/twig": "~1.18"
+        "twig/twig": "~1.18",
+        "symfony/filesystem": "~2.6"
     },
     "autoload": {
         "psr-4": { "Beryllium\\Icelus\\": "" }
