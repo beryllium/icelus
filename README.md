@@ -1,6 +1,8 @@
 Icelus
 ======
 
+![Build Status](https://travis-ci.org/beryllium/icelus.svg)
+
 > _Icelus, otherwise known as "Scaled Sculpin", are a small fish native to the North Pacific._
 
 Icelus is a quick and easy thumbnail generator for your Sculpin-based websites and blogs.
