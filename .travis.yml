@@ -6,6 +6,7 @@ php:
   - hhvm
 
 install:
+  - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
 script: phpunit --coverage-text --verbose

@@ -93,3 +93,8 @@ Future Plans
 I would like for Icelus to expose more features of the underlying Imanee library, particularly with regard to watermarks and drawing text onto images. Imanee's support for animated gifs could possibly also be advantageous in some way.
 
 I would also like for Icelus to be compatible with a wide variety of PHP frameworks and workflows. I've concentrated on having it as a Twig extension, but it could also work with other template systems and even Markdown-style parsers.
+
+Thanks
+------
+
+Special thanks to [Beau Simensen](https://github.com/simensen), for inviting me into the Sculpin organization, and to [Erika Heidi](https://github.com/erikaheidi) for the ease-of-use of the Imanee library.
