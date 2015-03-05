@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - hhvm
+
+install:
+  - composer --prefer-source install
+
+script: phpunit --coverage-text --verbose

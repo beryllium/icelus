@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="icelus.imanee.class">Imanee\Imanee</parameter>
+        <parameter key="icelus.image_service.class">Beryllium\Icelus\ImageService</parameter>
+        <parameter key="icelus.twig_extension.class">Beryllium\Icelus\TwigImageExtension</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="icelus.imanee" class="%icelus.imanee.class%" />
+
+        <service id="icelus.service" class="%icelus.image_service.class%">
+            <argument type="service" id="icelus.imanee" />
+            <argument>%sculpin.source_dir%</argument>
+            <argument>%sculpin.output_dir%</argument>
+            <argument>%kernel.environment%</argument>
+        </service>
+
+        <service id="icelus.extension.image" class="%icelus.twig_extension.class%">
+            <argument type="service" id="icelus.service" />
+            <tag name="twig.extension" />
+        </service>
+
+    </services>
+
+</container>
