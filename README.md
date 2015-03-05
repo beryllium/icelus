@@ -38,7 +38,7 @@ Once the library is installed, you have to tell Sculpin how to load it. You can 
         protected function getAdditionalSculpinBundles()
         {
             return array(
-                'Beryllium/Icelus/IcelusBundle',
+                'Beryllium\Icelus\IcelusBundle',
             );
         }
     }
