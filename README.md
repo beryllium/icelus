@@ -19,10 +19,10 @@ Icelus requires:
 Installation
 ------------
 
-If you are using the Phar-based Sculpin utility, you can create or modify a sculpin.json file in your project root and add `"beryllium/icelus"` to the `"requires"` block. Then, run `sculpin install` or `sculpin update` to fetch the required dependencies.
+If you are using the Phar-based Sculpin utility, you can create or modify a sculpin.json file in your project root and add `"beryllium/icelus"` to the `"require"` block. Then, run `sculpin install` or `sculpin update` to fetch the required dependencies.
 
     {
-      "requires": {
+      "require": {
          "beryllium/icelus": "*"
       }
     }
