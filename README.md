@@ -59,7 +59,7 @@ ___thumbnail(image, width, height, crop)___
 
 Inline Example:
 
-    <a href="image.jpg"><img src="{% thumbnail('image.jpg', 100, 100) %}"></a>
+    <a href="image.jpg"><img src="{{ thumbnail('image.jpg', 100, 100) }}"></a>
     
 Macro Example:
 
@@ -75,7 +75,7 @@ Macro Example:
     
     {% macro small_thumbnail(image, caption) %}
       <a href="{{ image }}">
-        <img src="{% thumbnail(image, 100, 100) %}">
+        <img src="{{ thumbnail(image, 100, 100) }}">
         <br>
         <em>{{ caption }}</em>
       </a>
