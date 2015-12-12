@@ -7,7 +7,8 @@ php:
   - 7.0
 
 install:
-  - sudo apt-get -y install `apt-cache search php | grep imagick | sed 's/ .*//'`
+  - sudo apt-get -y install php-pear
+  - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
 script: vendor/bin/phpunit --coverage-text --verbose
