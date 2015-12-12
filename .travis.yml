@@ -5,12 +5,12 @@ php:
   - 5.5
   - 5.6
   - 7.0
-      
+
+matrix:
+  allow_failures:
+    - php: 7.0
+  
 install:
-  - apt-cache search ImageMagick
-  - apt-cache search imagick
-  - dpkg --get-selections | grep -i imag
-  - echo "Language Version: PHP $TRAVIS_PHP_VERSION"
   - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
