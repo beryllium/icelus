@@ -1,13 +1,19 @@
 language: php
 
+sudo: false
+
 php:
   - 5.4
   - 5.5
   - 5.6
   - 7.0
 
+addons:
+  apt:
+    packages:
+      - php-pear
+      
 install:
-  - sudo apt-get -y install php-pear
   - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
