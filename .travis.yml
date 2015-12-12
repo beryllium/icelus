@@ -7,6 +7,7 @@ php:
   - 7.0
 
 install:
+  - yum -y install php-pear ImageMagick* gcc
   - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
