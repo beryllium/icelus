@@ -1,7 +1,7 @@
 Icelus
 ======
 
-![Build Status](https://travis-ci.org/beryllium/icelus.svg) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542/mini.png)](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542)
+[![Build Status](https://travis-ci.org/beryllium/icelus.svg)](https://travis-ci.org/beryllium/icelus) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542/mini.png)](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542)
 
 Icelus is a quick and easy thumbnail generator for your Sculpin-based websites and blogs.
 
