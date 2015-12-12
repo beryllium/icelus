@@ -14,6 +14,7 @@ addons:
       - php-pear
       
 install:
+  - pecl update-channels
   - printf "\n" | pecl install imagick
   - composer --prefer-source install
 
