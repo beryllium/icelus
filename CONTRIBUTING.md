@@ -37,4 +37,4 @@ Please format your commit messages as follows:
  [gh-help]: https://help.github.com
  [gh-pr]:   https://help.github.com/send-pull-requests
  [issue]:   https://github.com/beryllium/icelus/issues/new
- [pr]:      https://github.com/helios-ag/FMElfinderBundle/pull/new
+ [pr]:      https://github.com/beryllium/icelus/pull/new
