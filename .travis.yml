@@ -11,7 +11,7 @@ matrix:
     - php: 7.0
   
 install:
-  - printf "\n" | pecl install imagick
+  - printf "\n" | pecl install imagick-beta
   - composer --prefer-source install
 
 script: vendor/bin/phpunit --coverage-text --verbose
