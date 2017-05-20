@@ -48,14 +48,16 @@ __Note:__ The class name should be a string, not an object instantiation. (This 
 Configuration
 -------------
 
-Add to `sculpin_kernel.yml`
+Generally, no additional configuration is required. If you want to rename
+the output subfolder for thumbnails (default is 'yourblog.com/_thumbs'),
+add this to your `sculpin_kernel.yml`
 
 ``` yml
 icelus:
     prefix: '/_thumbs'
 ```
 
-* `icelus.prefix` : A part of the path used as the prefix of the output path. default is `'/_thumbs'`.
+* `icelus.prefix` : A subdirectory under the Sculpin output directory to store the thumbnails. Default is `'/_thumbs'`.
 
 Usage
 -----
