@@ -17,6 +17,7 @@
             <argument type="service" id="icelus.imanee" />
             <argument>%sculpin.source_dir%</argument>
             <argument>%sculpin.output_dir%</argument>
+            <argument>%icelus.config.prefix%</argument>
             <argument type="service" id="filesystem" />
         </service>
 

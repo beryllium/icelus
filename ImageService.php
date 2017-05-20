@@ -14,7 +14,7 @@ class ImageService
     public $source_dir;
     public $output_dir;
     public $filesystem;
-    public $prefix    = '/_thumbs';
+    public $prefix;
     public $completed = array();
 
     /**
@@ -23,13 +23,15 @@ class ImageService
      * @param Imanee        $imanee         Performs the required image manipulations
      * @param string        $source_dir     Where to find the images
      * @param string        $output_dir     Where to save the images
+     * @param string        $prefix         prefix path for images
      * @param Filesystem    $filesystem     Filesystem class for doing filesystem things
      */
-    public function __construct(Imanee $imanee, $source_dir, $output_dir, Filesystem $filesystem)
+    public function __construct(Imanee $imanee, $source_dir, $output_dir, $prefix, Filesystem $filesystem)
     {
         $this->imanee     = $imanee;
         $this->source_dir = rtrim($source_dir, '/');
         $this->output_dir = rtrim($output_dir, '/');
+        $this->prefix     = $prefix;
         $this->filesystem = $filesystem;
     }
 
