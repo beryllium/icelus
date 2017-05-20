@@ -45,6 +45,18 @@ Once the library is installed, you have to tell Sculpin how to load it. You can 
 
 __Note:__ The class name should be a string, not an object instantiation. (This differs from the way Symfony 2 configures bundles.)
 
+Configuration
+-------------
+
+Add to `sculpin_kernel.yml`
+
+``` yml
+icelus:
+    prefix: '/_thumbs'
+```
+
+* `icelus.prefix` : A part of the path used as the prefix of the output path. default is `'/_thumbs'`.
+
 Usage
 -----
 
