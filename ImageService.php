@@ -17,13 +17,15 @@ class ImageService
     public $prefix;
     public $completed = array();
 
+    const DEFAULT_PREFIX = '/_thumbs';
+
     /**
      * Constructor
      *
      * @param Imanee        $imanee         Performs the required image manipulations
      * @param string        $source_dir     Where to find the images
      * @param string        $output_dir     Where to save the images
-     * @param string        $prefix         prefix path for images
+     * @param string|null   $prefix         subdirectory under output_dir to save the images (Default: '/_thumbs')
      * @param Filesystem    $filesystem     Filesystem class for doing filesystem things
      */
     public function __construct(Imanee $imanee, $source_dir, $output_dir, $prefix, Filesystem $filesystem)
@@ -31,7 +33,7 @@ class ImageService
         $this->imanee     = $imanee;
         $this->source_dir = rtrim($source_dir, '/');
         $this->output_dir = rtrim($output_dir, '/');
-        $this->prefix     = $prefix;
+        $this->prefix     = $prefix ? rtrim($prefix, '/') : static::DEFAULT_PREFIX;
         $this->filesystem = $filesystem;
     }
 

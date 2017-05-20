@@ -38,6 +38,7 @@ class ImageServiceTest extends \PHPUnit_Framework_TestCase
             $this->imanee,
             $this->source_dir,
             $this->output_dir->url('thumbs'),
+            null,
             new Filesystem
         );
 
@@ -52,6 +53,7 @@ class ImageServiceTest extends \PHPUnit_Framework_TestCase
             $this->imanee,
             $this->source_dir,
             $this->output_dir->url('thumbs'),
+            null,
             new Filesystem
         );
 
@@ -70,6 +72,7 @@ class ImageServiceTest extends \PHPUnit_Framework_TestCase
             $this->imanee,
             $this->source_dir,
             $dir . '/test',
+            null,
             new Filesystem
         );
 
