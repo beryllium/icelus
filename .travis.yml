@@ -7,4 +7,4 @@ install:
   - printf "\n" | pecl install imagick-beta
   - composer --prefer-source install
 
-script: vendor/bin/phpunit --coverage-text --verbose
+script: vendor/bin/phpunit --verbose
