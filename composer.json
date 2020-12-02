@@ -2,7 +2,12 @@
     "name": "beryllium/icelus",
     "description": "Thumbnail generator for Sculpin-based websites",
     "homepage": "https://whateverthing.com",
-    "keywords": ["images", "thumbnails", "sculpin", "sculpin-plugin"],
+    "keywords": [
+        "images",
+        "thumbnails",
+        "sculpin",
+        "sculpin-plugin"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -18,16 +23,20 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4",
-        "mikey179/vfsstream": "~1.4.0",
         "symfony/config": "^4.1",
         "symfony/dependency-injection": "^4.1",
         "symfony/http-kernel": "^4.1",
-        "twig/twig": "^2.5"
+        "twig/twig": "^2.5",
+        "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
-        "psr-4": { "Beryllium\\Icelus\\": "" }
+        "psr-4": {
+            "Beryllium\\Icelus\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Beryllium\\Icelus\\": "tests/Beryllium/Icelus" }
+        "psr-4": {
+            "Beryllium\\Icelus\\": "tests/Beryllium/Icelus"
+        }
     }
 }
