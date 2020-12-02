@@ -25,7 +25,7 @@ class IcelusTestBase extends \PHPUnit\Framework\TestCase
 
     public $output_writer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->imanee     = new Imanee;
         $this->source_dir = __DIR__ . '/../../Resources';

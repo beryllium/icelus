@@ -13,7 +13,7 @@ class TwigImageExtensionTest extends IcelusTestBase
 
         // test a valid resource
         $thumbnail = $service->thumbnail('valid.jpg', 100, 100, false);
-        $this->assertContains('-100x100.jpeg', $thumbnail);
+        $this->assertStringContainsString('-100x100.jpeg', $thumbnail);
     }
 
     public function testNotFoundThumbnail()
