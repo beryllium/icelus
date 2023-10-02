@@ -2,29 +2,30 @@
 
 namespace Beryllium\Icelus;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
+use Twig\Extension\ExtensionInterface;
+use Twig\TwigFunction;
 
 /**
  * Exposes a "thumbnail" function to Twig templates
  */
-class TwigImageExtension extends Twig_Extension
+class TwigImageExtension extends AbstractExtension implements ExtensionInterface
 {
-    public $service = null;
+    public ImageService $service;
 
-    public function __construct($service)
-    {
+    public function __construct(ImageService $service) {
         $this->service = $service;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'image_extension';
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            new \Twig_SimpleFunction('thumbnail', array($this->service, 'thumbnail'))
-        );
+        return [
+            new TwigFunction('thumbnail', [$this->service, 'thumbnail'])
+        ];
     }
 }

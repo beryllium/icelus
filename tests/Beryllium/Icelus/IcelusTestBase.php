@@ -5,8 +5,9 @@ namespace Beryllium\Icelus;
 use Imanee\Imanee;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\TestCase;
 
-class IcelusTestBase extends \PHPUnit\Framework\TestCase
+class IcelusTestBase extends TestCase
 {
     /**
      * @var string
