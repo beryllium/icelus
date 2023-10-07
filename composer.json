@@ -19,7 +19,7 @@
     "require": {
         "php": "^7.4||^8.0",
         "imanee/imanee": "^1.2",
-        "symfony/filesystem": "^4.1"
+        "symfony/filesystem": "^4.1||^5.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4",
