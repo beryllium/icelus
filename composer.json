@@ -16,9 +16,15 @@
             "homepage": "https://whateverthing.com"
         }
     ],
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/beryllium/imanee"
+      }
+    ],
     "require": {
-        "php": "^7.4||^8.0",
-        "imanee/imanee": "^1.2",
+        "php": "^8.3",
+        "imanee/imanee": "dev-2.0.x-dev",
         "symfony/filesystem": "^5.4"
     },
     "require-dev": {
