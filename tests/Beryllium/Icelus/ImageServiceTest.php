@@ -2,7 +2,6 @@
 
 namespace Beryllium\Icelus;
 
-use Imanee\Exception\ImageNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ImageServiceTest extends IcelusTestBase
@@ -10,11 +9,10 @@ class ImageServiceTest extends IcelusTestBase
     public function testValidThumbnail()
     {
         $service = new ImageService(
-            $this->imanee,
             $this->source_dir,
             $this->output_writer,
             null,
-            new Filesystem
+            new Filesystem,
         );
 
         // test a valid resource
@@ -25,19 +23,18 @@ class ImageServiceTest extends IcelusTestBase
     public function testNotFoundThumbnail()
     {
         $service = new ImageService(
-            $this->imanee,
             $this->source_dir,
             $this->output_writer,
             null,
             new Filesystem
         );
 
-        // test a not-found resource
-        try {
-            $service->thumbnail('not-found.jpg', 100, 100, false);
-        } catch (ImageNotFoundException $e) {}
+        $this->expectException(\ImagickException::class);
+        $this->expectExceptionCode(435);
+        $this->expectExceptionMessageIsOrContains('unable to open image');
 
-        $this->assertNotEmpty($e);
+        // test a not-found resource
+        $service->thumbnail('not-found.jpg', 100, 100, false);
     }
 
     public function testOutputDirNotFound()
@@ -46,7 +43,6 @@ class ImageServiceTest extends IcelusTestBase
         $writer->setOutputDir($writer->getOutputDir() . '/test');
 
         $service = new ImageService(
-            $this->imanee,
             $this->source_dir,
             $writer,
             null,
