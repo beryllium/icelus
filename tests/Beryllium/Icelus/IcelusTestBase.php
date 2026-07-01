@@ -23,11 +23,11 @@ class IcelusTestBase extends TestCase
                 $this->output_dir = $outputDir;
             }
 
-            public function setOutputDir($dir) {
+            public function setOutputDir($dir): void {
                 $this->output_dir = $dir;
             }
 
-            public function getOutputDir() {
+            public function getOutputDir(): string {
                 return $this->output_dir;
             }
         };

@@ -16,7 +16,7 @@ class ImageService
     public ?string $prefix;
     public array $completed = [];
 
-    const DEFAULT_PREFIX = '/_thumbs';
+    const string DEFAULT_PREFIX = '/_thumbs';
 
     /**
      * Constructor
