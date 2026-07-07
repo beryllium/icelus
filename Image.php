@@ -2,7 +2,7 @@
 
 namespace Beryllium\Icelus;
 
-class Image
+class Image implements Thumbable
 {
     protected readonly \Imagick $image;
 
@@ -17,12 +17,9 @@ class Image
     /**
      * @throws \ImagickException
      */
-    protected function load(string $filename): self
+    protected function load(string $filename): void
     {
-        $this->filename = $filename;
         $this->image = new \Imagick($filename);
-
-        return $this;
     }
 
     /**

@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class ImageService
 {
     public Filesystem $filesystem;
+    public ImageLoader $imageLoader;
 
     public string $source_dir;
     public string $output_dir;
@@ -26,12 +27,18 @@ class ImageService
      * @param string|null   $prefix         subdirectory under output_dir to save the images (Default: '/_thumbs')
      * @param Filesystem    $filesystem     Filesystem class for doing filesystem things
      */
-    public function __construct(string $source_dir, $output_writer, ?string $prefix, Filesystem $filesystem)
-    {
+    public function __construct(
+        string $source_dir,
+        $output_writer,
+        ?string $prefix,
+        Filesystem $filesystem,
+        ImageLoader $imageLoader
+    ) {
         $this->source_dir = rtrim($source_dir, '/');
         $this->output_dir = rtrim($output_writer->getOutputDir(), '/');
         $this->prefix     = $prefix ? rtrim($prefix, '/') : static::DEFAULT_PREFIX;
         $this->filesystem = $filesystem;
+        $this->imageLoader = $imageLoader;
     }
 
     /**
@@ -65,8 +72,8 @@ class ImageService
         }
 
         $this->prepOutputDir();
-        $sourceImage = new Image($this->source_dir . '/' . $image);
 
+        $sourceImage = $this->imageLoader->load($this->source_dir . '/' . $image);
         $sourceImage->thumbnail($width, $height, $crop);
 
         $thumb_name = vsprintf(
@@ -81,10 +88,7 @@ class ImageService
         );
 
         // write the thumbnail to disk
-        file_put_contents(
-            $this->output_dir . $this->prefix . '/' . $thumb_name,
-            $sourceImage->output()
-        );
+        $sourceImage->write($this->output_dir . $this->prefix . '/' . $thumb_name);
 
         $this->completed[$image][$width][$height][(int)$crop]['filename'] = $thumb_name;
 

@@ -3,7 +3,7 @@ Icelus
 
 [![Build Status](https://travis-ci.org/beryllium/icelus.svg)](https://travis-ci.org/beryllium/icelus) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542/mini.png)](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542)
 
-Icelus is a quick and easy thumbnail generator for your Sculpin-based websites and blogs.
+Icelus enables your Sculpin-based websites and blogs to generate space and bandwidth-saving thumbnails of images.
 
 > _Icelus, otherwise known as "Scaled Sculpin", are a genus of small fish mainly found in the North Pacific._
 
@@ -12,45 +12,37 @@ Requirements
 
 Icelus requires:
 
-* PHP 5.4+
-* Imagick extension (installable via apt-get, pecl, or yum)
-* Imanee library ([imanee.io](http://imanee.io) - fetched automatically by Composer)
+* [PHP 8.5+](https://www.php.net/downloads.php)
+* [PHP Composer](https://getcomposer.org/download/)
+* Imagick or Gd extension (installable via apt-get, pecl, pie, homebrew, macports, or yum)
 
 Installation
 ------------
 
-If you are using the Phar-based Sculpin utility, you can create or modify a sculpin.json file in your project root and add `"beryllium/icelus"` to the `"require"` block. Then, run `sculpin install` or `sculpin update` to fetch the required dependencies.
+You can run `composer require beryllium/icelus` to get things rolling.
 
-    {
-      "require": {
-         "beryllium/icelus": "*"
-      }
-    }
-    
-Alternatively, if you are using a Composer-based sculpin installation, you should simply be able to run `composer require beryllium/icelus` to get things rolling.
-
-Once the library is installed, you have to tell Sculpin how to load it. You can do this by creating or modifying a `app/SculpinKernel.php` file to resemble the following:
+Once the library is installed, you have to tell Sculpin how to load it. You can do this by creating or modifying the `app/SculpinKernel.php` file to resemble the following:
 
     <?php
     
     class SculpinKernel extends \Sculpin\Bundle\SculpinBundle\HttpKernel\AbstractKernel
     {
-        protected function getAdditionalSculpinBundles()
+        protected function getAdditionalSculpinBundles(): array
         {
             return array(
-                'Beryllium\Icelus\IcelusBundle',
+                \Beryllium\Icelus\IcelusBundle::class,
             );
         }
     }
 
-__Note:__ The class name should be a string, not an object instantiation. (This differs from the way Symfony 2 configures bundles.)
+__Note:__ The class name should be either the class constant (shown above) or a string, not an object instantiation.
 
 Configuration
 -------------
 
 Generally, no additional configuration is required. If you want to rename
 the output subfolder for thumbnails (default is 'yourblog.com/_thumbs'),
-add this to your `sculpin_kernel.yml`
+add this to `app/config/sculpin_kernel.yml`:
 
 ``` yml
 icelus:
@@ -70,6 +62,8 @@ ___thumbnail(image, width, height, crop)___
 * __width__ (int): Maximum width, in pixels
 * __height__ (int): Maximum height, in pixels
 * __crop__ (bool): False will fit the whole image inside the provided dimensions. True will crop the image from the center. Default: __FALSE__
+
+__Note:__ The `crop` setting currently only works with the Imagick loader, which has built-in support. Gd allows cropping and many other advanced operations, but implementing them is more challenging.
 
 Inline Example:
 
@@ -97,19 +91,13 @@ Macro Example:
     
 A service called `icelus.service` is also added to the Sculpin dependency injection container, which you can use in your own Sculpin extensions. 
 
-For raw access to the underlying Imanee library, the service is named `icelus.imanee`. If you need to go deeper, you can then retrieve an Imagick instance using `$imanee->getIMResource()`.
-
-Technically speaking, this extension could also be used as a Symfony 2 bundle. This has not been tested, but experimentation is welcome.
-
 Future Plans
 ------------
 
-I would like for Icelus to expose more features of the underlying Imanee library, particularly with regard to watermarks and drawing text onto images. Imanee's support for animated gifs could possibly also be advantageous in some way.
-
-I would also like for Icelus to be compatible with a wide variety of PHP frameworks and workflows. I've concentrated on having it as a Twig extension, but it could also work with other template systems and even Markdown-style parsers.
+I would like for Icelus to expose more features of the underlying image processing libraries, particularly with regard to watermarks and drawing text onto images.
 
 Thanks
 ------
 
-Special thanks to [Beau Simensen](https://github.com/simensen), for inviting me into the Sculpin organization, and to [Erika Heidi](https://github.com/erikaheidi) for the ease-of-use of the Imanee library.
+Special thanks to [Beau Simensen](https://github.com/simensen), for inviting me into the Sculpin organization, and to [Erika Heidi](https://github.com/erikaheidi) for the ease-of-use of the original Imanee library that worked for many years.
 

@@ -10,7 +10,7 @@ class TwigImageExtensionTest extends IcelusTestBase
 {
     public function testValidThumbnail()
     {
-        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem);
+        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
 
         // test a valid resource
         $thumbnail = $service->thumbnail('valid.jpg', 100, 100, false);
@@ -19,7 +19,7 @@ class TwigImageExtensionTest extends IcelusTestBase
 
     public function testNotFoundThumbnail()
     {
-        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem);
+        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
 
         $this->expectException(ImagickException::class);
         $this->expectExceptionCode(435);
@@ -31,7 +31,7 @@ class TwigImageExtensionTest extends IcelusTestBase
 
     public function testExtension()
     {
-        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem);
+        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
         $ext = new TwigImageExtension($service);
 
         $this->assertInstanceOf(TwigImageExtension::class, $ext);
