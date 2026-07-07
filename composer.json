@@ -12,27 +12,23 @@
     "authors": [
         {
             "name": "Kevin Boyd",
-            "email": "kevin.boyd@gmail.com",
+            "email": "kevin@whateverthing.com",
             "homepage": "https://whateverthing.com"
         }
     ],
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "https://github.com/beryllium/imanee"
-      }
-    ],
     "require": {
-        "php": "^8.3",
-        "imanee/imanee": "dev-2.0.x-dev",
-        "symfony/filesystem": "^6.4"
+        "php": "^8.5",
+        "symfony/filesystem": "^7.0"
+    },
+    "suggest": {
+        "ext-imagick": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.4",
+        "phpunit/phpunit": "^13.0",
         "mikey179/vfsstream": "^1.6",
-        "symfony/config": "^6.4",
-        "symfony/dependency-injection": "^6.4",
-        "symfony/http-kernel": "^6.4",
+        "symfony/config": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/http-kernel": "^7.0",
         "twig/twig": "^2.5||^3.0"
     },
     "autoload": {
