@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Beryllium\\Icelus\\": ""
+            "Beryllium\\Icelus\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Beryllium\\Icelus\\": "tests/Beryllium/Icelus"
+            "Beryllium\\Icelus\\": "tests/"
         }
     },
     "scripts": {

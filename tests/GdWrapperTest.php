@@ -17,7 +17,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Portrait_NoCrop()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 
@@ -29,7 +29,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Landscape_NoCrop()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid-landscape.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid-landscape.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 
@@ -41,7 +41,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Pano_NoCrop()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid-pano.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid-pano.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 
@@ -53,7 +53,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Portrait()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 
@@ -65,7 +65,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Landscape()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid-landscape.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid-landscape.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 
@@ -77,7 +77,7 @@ class GdWrapperTest extends TestCase
 
     public function testThumbnail_Pano()
     {
-        $image = new GdWrapper(__DIR__ . '/../../Resources/valid-pano.jpg');
+        $image = new GdWrapper(__DIR__ . '/Resources/valid-pano.jpg');
 
         self::assertSame('jpeg', $image->getFileExtension());
 

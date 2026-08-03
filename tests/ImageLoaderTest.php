@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImageLoaderTest extends TestCase
 {
-    public const string TEST_FILE = __DIR__ . '/../../Resources/valid.jpg';
+    public const string TEST_FILE = __DIR__ . '/Resources/valid.jpg';
 
     public function testLoad_OnlyGd()
     {
