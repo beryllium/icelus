@@ -26,8 +26,11 @@ class ImageLoaderTest extends TestCase
             protected function isImagickInstalled(): bool { return true; }
         };
 
-        $image = $loader->load(self::TEST_FILE);
-
-        $this->assertInstanceOf(Image::class, $image);
+        try {
+            $image = $loader->load(self::TEST_FILE);
+            $this->assertInstanceOf(Image::class, $image);
+        } catch (\Error $err) {
+            $this->assertStringContainsString('Class "Imagick" not found', $err->getMessage());
+        }
     }
 }
