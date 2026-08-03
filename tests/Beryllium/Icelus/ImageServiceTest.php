@@ -31,9 +31,8 @@ class ImageServiceTest extends IcelusTestBase
             new ImageLoader // assumes that Imagick will be installed on the test server
         );
 
-        $this->expectException(\ImagickException::class);
-        $this->expectExceptionCode(435);
-        $this->expectExceptionMessageIsOrContains('unable to open image');
+        $this->expectException(ImageNotFoundException::class);
+        $this->expectExceptionMessageIsOrContains('Image not found');
 
         // test a not-found resource
         $service->thumbnail('not-found.jpg', 100, 100, false);
@@ -53,8 +52,7 @@ class ImageServiceTest extends IcelusTestBase
         );
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionCode(0);
-        $this->expectExceptionMessageIsOrContains('invalid or unsupported image file');
+        $this->expectExceptionMessageIsOrContains('Image not found');
 
         // test a not-found resource
         $service->thumbnail('not-found.jpg', 100, 100, false);

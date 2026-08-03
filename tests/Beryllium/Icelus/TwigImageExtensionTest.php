@@ -2,7 +2,6 @@
 
 namespace Beryllium\Icelus;
 
-use ImagickException;
 use Symfony\Component\Filesystem\Filesystem;
 use Twig\TwigFunction;
 
@@ -17,13 +16,23 @@ class TwigImageExtensionTest extends IcelusTestBase
         $this->assertStringContainsString('-100x100.jpeg', $thumbnail);
     }
 
+    public function testInvalidThumbnail()
+    {
+        $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
+
+        // test an invalid resource
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageIsOrContains('Encountered an invalid or unsupported image file');
+
+        $thumbnail = $service->thumbnail('invalid.jpg', 100, 100, false);
+    }
+
     public function testNotFoundThumbnail()
     {
         $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
 
-        $this->expectException(ImagickException::class);
-        $this->expectExceptionCode(435);
-        $this->expectExceptionMessageIsOrContains('unable to open image');
+        $this->expectException(ImageNotFoundException::class);
+        $this->expectExceptionMessageIsOrContains('Image not found');
 
         // test a not-found resource
         $service->thumbnail('not-found.jpg', 100, 100, false);
