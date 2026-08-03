@@ -2,10 +2,18 @@
 
 namespace Beryllium\Icelus;
 
+use GdImage;
+use RuntimeException;
+
+/**
+ * Wraps the GD extension methods/classes to provide a consistent Imagick-like interface
+ *
+ * NOTE: This is not a comprehensive implementation, it only delivers Icelus-specific functionality.
+ */
 class GdWrapper implements Thumbable
 {
-    protected \GdImage $image;
-    protected \GdImage $thumb;
+    protected GdImage $image;
+    protected GdImage $thumb;
     protected array $info;
     protected array $extraInfo = [];
 
@@ -15,6 +23,7 @@ class GdWrapper implements Thumbable
     public int $thumbHeight;
     public string $mime;
     public string $extension;
+    private ThumbnailMath $thumbDeets;
 
     public function __construct(protected string $filename)
     {
@@ -26,7 +35,7 @@ class GdWrapper implements Thumbable
         $info = getimagesize($filename, $this->extraInfo);
 
         if (false === $info) {
-            throw new \RuntimeException("Encountered an invalid or unsupported image file: " . $filename);
+            throw new RuntimeException("Encountered an invalid or unsupported image file: " . $filename);
         }
 
         $this->info = $info;
@@ -49,73 +58,36 @@ class GdWrapper implements Thumbable
         return strtolower($this->extension);
     }
 
+    /**
+     * Apply thumbnail calculations and create the thumbnail image in-memory
+     */
     public function thumbnail(int $width, int $height, bool $crop = true): bool
     {
-        $this->thumbWidth = $width;
-        $this->thumbHeight = $height;
-
-        $srcX = $srcY = $dstX = $dstY = 0;
-
-        $ratio  = $this->width > 0 && $this->height > 0 ? $this->width / $this->height : 1;
-        $ratio  = $ratio > 0.00 ? $ratio : 1.0;
-
-        $thumbRatio = $this->thumbWidth > 0 && $this->thumbHeight > 0 ? $this->thumbWidth / $this->thumbHeight : 1;
-        $thumbRatio  = $thumbRatio > 0.00 ? $thumbRatio : 1.0;
-
-        if (abs($ratio - $thumbRatio) > 1) {
-            // Calculate cropping window
-            if ($crop) {
-
-            }
-            throw new \RuntimeException(<<<EOT
-                Thumbnail ratio does not match image ratio:
-                
-                Image Height: {$this->height}
-                Image Width: {$this->width}
-                Image Aspect Ratio: {$ratio }
-                
-                Thumb Height: {$this->thumbHeight}
-                Thumb Width: {$this->thumbWidth}
-                Thumb Aspect Ratio: {$thumbRatio}
-                
-                src X: $srcX
-                src Y: $srcY
-                EOT
-            );
-        }
-
-        $newWidth  = min($this->width, $this->thumbWidth);
-        $newHeight = (int)ceil($newWidth / $ratio);
-
-        if ($newHeight > $this->thumbHeight) {
-            $newHeight = $this->thumbHeight;
-            $newWidth  = (int)ceil($this->thumbHeight * $ratio);
-        }
-        // @todo update this logic to factor in the $crop setting
-        // if ($this->height > $this->thumbHeight) {
-        //     $newWidth = ($this->thumbHeight / $this->height) * $this->width;
-        //     $newHeight = $height;
-        // }
-        //
-        // if ($this->width > $this->thumbWidth) {
-        //     $newHeight = ($this->thumbWidth / $this->width) * $this->height;
-        //     $newWidth = $this->thumbWidth;
-        // }
+        $this->thumbDeets = new ThumbnailMath(
+            srcWidth: $this->width,
+            srcHeight: $this->height,
+            destWidth: $width,
+            destHeight: $height,
+            crop: $crop,
+        );
 
         $this->thumb = imagecreatetruecolor(
-            width: $newWidth,
-            height: $newHeight
+            width: $this->thumbDeets->destWidth,
+            height: $this->thumbDeets->destHeight,
         );
+
+        $this->thumbWidth = $this->thumbDeets->destWidth;
+        $this->thumbHeight = $this->thumbDeets->destHeight;
 
         imagecopyresampled(
             dst_image: $this->thumb,
             src_image: $this->image,
-            dst_x: $dstX,
-            dst_y: $dstY,
-            src_x: $srcX,
-            src_y: $srcY,
-            dst_width: $newWidth,
-            dst_height: $newHeight,
+            dst_x: $this->thumbDeets->destX,
+            dst_y: $this->thumbDeets->destY,
+            src_x: $this->thumbDeets->srcX,
+            src_y: $this->thumbDeets->srcY,
+            dst_width: $this->thumbDeets->newWidth,
+            dst_height: $this->thumbDeets->newHeight,
             src_width: $this->width,
             src_height: $this->height
         );
@@ -123,6 +95,9 @@ class GdWrapper implements Thumbable
         return true;
     }
 
+    /**
+     * Get thumbnail binary data
+     */
     public function output(): string
     {
         ob_start();
@@ -142,7 +117,7 @@ class GdWrapper implements Thumbable
                 imagegif($this->thumb);
                 break;
             default:
-                throw new \RuntimeException('Unhandled image format - could not create thumbnail');
+                throw new RuntimeException('Unhandled image format - could not create thumbnail');
                 break;
         }
 
@@ -152,6 +127,9 @@ class GdWrapper implements Thumbable
         return $imageData;
     }
 
+    /**
+     * Write thumbnail binary data to disk
+     */
     public function write(string $filename): bool
     {
         $result = file_put_contents($filename, $this->output());

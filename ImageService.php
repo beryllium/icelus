@@ -63,9 +63,14 @@ class ImageService
      *                              from the center to match the given size
      *
      * @return string               Location of the thumbnail, for use in <img> tags
+     * @throws ImageNotFoundException
      */
     public function thumbnail(string $image, int $width = 150, int $height = 150, bool $crop = false): string
     {
+        if (!file_exists($this->source_dir . DIRECTORY_SEPARATOR . $image)) {
+            throw new ImageNotFoundException(sprintf('Image not found (%s)', $image));
+        }
+
         // no sense duplicating work - only process image if thumbnail doesn't already exist
         if (isset($this->completed[$image][$width][$height][(int)$crop]['filename'])) {
             return $this->prefix . '/' . $this->completed[$image][$width][$height][(int)$crop]['filename'];

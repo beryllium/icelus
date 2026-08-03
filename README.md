@@ -1,8 +1,6 @@
 Icelus
 ======
 
-[![Build Status](https://travis-ci.org/beryllium/icelus.svg)](https://travis-ci.org/beryllium/icelus) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542/mini.png)](https://insight.sensiolabs.com/projects/274bb02a-d709-484f-a0f0-5650f494a542)
-
 Icelus enables your Sculpin-based websites and blogs to generate space and bandwidth-saving thumbnails of images.
 
 > _Icelus, otherwise known as "Scaled Sculpin", are a genus of small fish mainly found in the North Pacific._
@@ -62,8 +60,6 @@ ___thumbnail(image, width, height, crop)___
 * __width__ (int): Maximum width, in pixels
 * __height__ (int): Maximum height, in pixels
 * __crop__ (bool): False will fit the whole image inside the provided dimensions. True will crop the image from the center. Default: __FALSE__
-
-__Note:__ The `crop` setting currently only works with the Imagick loader, which has built-in support. Gd allows cropping and many other advanced operations, but implementing them is more challenging.
 
 Inline Example:
 
