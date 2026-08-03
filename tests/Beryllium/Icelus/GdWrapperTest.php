@@ -6,6 +6,15 @@ use PHPUnit\Framework\TestCase;
 
 class GdWrapperTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped('Gd extension is not installed');
+        }
+    }
+
     public function testThumbnail_Portrait_NoCrop()
     {
         $image = new GdWrapper(__DIR__ . '/../../Resources/valid.jpg');

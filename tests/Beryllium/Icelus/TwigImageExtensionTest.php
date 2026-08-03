@@ -24,9 +24,12 @@ class TwigImageExtensionTest extends IcelusTestBase
         if (extension_loaded('imagick')) {
             $this->expectException(\ImagickException::class);
             $this->expectExceptionMessageIsOrContains('insufficient image data in file');
-        } else {
+        } else if (extension_loaded('gd')) {
             $this->expectException(\RuntimeException::class);
             $this->expectExceptionMessageIsOrContains('Encountered an invalid or unsupported image file');
+        } else {
+            $this->expectException(\Exception::class);
+            $this->expectExceptionMessageIsOrContains('Icelus requires either php-imagick or php-gd');
         }
 
         $service->thumbnail('invalid.jpg', 100, 100, false);

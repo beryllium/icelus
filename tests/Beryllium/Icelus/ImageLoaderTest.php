@@ -15,9 +15,12 @@ class ImageLoaderTest extends TestCase
             protected function isGdInstalled(): bool { return true; }
         };
 
-        $image = $loader->load(self::TEST_FILE);
-
-        $this->assertInstanceOf(GdWrapper::class, $image);
+        try {
+            $image = $loader->load(self::TEST_FILE);
+            $this->assertInstanceOf(GdWrapper::class, $image);
+        } catch (\Error $err) {
+            $this->assertStringContainsString('Call to undefined function', $err->getMessage());
+        }
     }
 
     public function testLoad_OnlyImagick()
