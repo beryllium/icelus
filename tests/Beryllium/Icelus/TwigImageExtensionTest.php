@@ -21,10 +21,15 @@ class TwigImageExtensionTest extends IcelusTestBase
         $service = new ImageService($this->source_dir, $this->output_writer, null, new Filesystem, new ImageLoader);
 
         // test an invalid resource
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessageIsOrContains('Encountered an invalid or unsupported image file');
+        if (extension_loaded('imagick')) {
+            $this->expectException(\ImagickException::class);
+            $this->expectExceptionMessageIsOrContains('insufficient image data in file');
+        } else {
+            $this->expectException(\RuntimeException::class);
+            $this->expectExceptionMessageIsOrContains('Encountered an invalid or unsupported image file');
+        }
 
-        $thumbnail = $service->thumbnail('invalid.jpg', 100, 100, false);
+        $service->thumbnail('invalid.jpg', 100, 100, false);
     }
 
     public function testNotFoundThumbnail()
